@@ -61,6 +61,3 @@ class AgenciaPremium(Agencia):
         else:
             print('Cliente não possui o patrimonio minimo necessario')
 
-
-agencia_virtual = AgenciaVirtual('www.', 645626, 645692, 2458)
-print(agencia_virtual.__dict__)
