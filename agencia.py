@@ -54,6 +54,12 @@ class AgenciaPremium(Agencia):
     def __init__(self, telefone, cnpj):
         super().__init__(telefone, cnpj, randint(1001, 999))
         self.caixa = 50000000
+    
+    def adicionar_clientes(self, nome, cpf, patrimonio):
+        if patrimonio > 1000000:
+            super().adicionar_clientes(nome, cpf, patrimonio)
+        else:
+            print('Cliente não possui o patrimonio minimo necessario')
 
 
 agencia_virtual = AgenciaVirtual('www.', 645626, 645692, 2458)
