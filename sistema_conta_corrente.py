@@ -3,7 +3,6 @@ import pytz
 from random import randint
 
 
-
 class Conta_corrente:
 
     def __init__(self, nome, cpf, agencia, conta):
@@ -64,28 +63,30 @@ class Conta_corrente:
 class CartaoCredito:
 
     def __init__(self, titular, conta_corrente):
-        self.numero = randint(1000000000000000,9999999999999999)
+        self.numero = randint(1000000000000000, 9999999999999999)
         self.titular = titular
-        self.validade = '{}{}'.format(CartaoCredito._data_hora().month,CartaoCredito._data_hora().year + 4)
-        self.cod_seguranca = "{}{}{}".format(randint(0,9),randint(0,9),randint(0,9))
+        self.validade = '{}{}'.format(
+            CartaoCredito._data_hora().month, CartaoCredito._data_hora().year + 4)
+        self.cod_seguranca = "{}{}{}".format(
+            randint(0, 9), randint(0, 9), randint(0, 9))
         self.limite = None
+        self._senha = '1234'
         self.conta_corrente = conta_corrente
         conta_corrente._cartoes.append(self)
-    
+
     @staticmethod
     def _data_hora():
         fuso_BR = pytz.timezone('Brazil/East')
         horario_BR = datetime.now(fuso_BR)
         return horario_BR
-    
 
-#cria uma nova instancia da conta corrente
+    @property
+    def senha(self):
+        return self._senha
 
-conta_denner = Conta_corrente('Denner','150.555.999-06',1234,34062)
-cartao_denner = CartaoCredito('Denner',conta_denner)
-
-print(cartao_denner.numero,
-      cartao_denner.validade,
-      cartao_denner.titular,
-      cartao_denner.cod_seguranca,
-      cartao_denner.limite)
+    @senha.setter
+    def senha(self, valor):
+        if len(valor) == 4 and valor.isnumeric():
+            self._senha = valor
+        else:
+            print("Nova senha inválida")
